@@ -25,49 +25,51 @@ sensor.gain(16)#16 is the most sensitive
 
 input("Press enter to start")#wait for tty to start
 
+for q in range(10):
+    index=open('index.txt','a+')
+    try:
+        char=int(index.read())
+    except:
+        char=0
+    index.close()
+    index=open('index.txt','w')
+    index.write(str(char+1))
+    index.close()
+    char=str(char)
+    file=open("iav2"+str(char)+'.csv','w')
 
-index=open('index.txt','a+')
-try:
-    char=int(index.read())
-except:
-    char=0
-index.close()
-index=open('index.txt','w')
-index.write(str(char+1))
-index.close()
-char=str(char)
-file=open("ia"+str(char)+'.csv','w')
-
-Servo.move(190)
-sleep(0.5)
-Servo.move(0)
-sleep(0.5)
-
-
-tRef=time_ns()
-for f in range(0,191,2):
-    A=f
-
+    Servo.move(180)
+    sleep(0.5)
     Servo.move(0)
-    file.flush()
-    sleep(f/700)
-    Servo.move(A)
-    sleep(f/300+0.05)
-    
-    for i in range(0,21,1):
-        B=i/20
-        LedB(B)
-        sleep(0.15)
-        L=sensor.read()#no autogain, calibrated out
-        
-        out=[B,L,A]
-        print(out) 
-        file.write(','.join(map(str, out))+'\n')
-        
-        
-t= 0.000000001*(time_ns()-tRef)
+    sleep(0.5)
 
-print(t)
+
+    tRef=time_ns()
+    for f in range(0,191,2):
+        A=f
+
+        Servo.move(0)
+        file.flush()
+        sleep(f/700)
+        Servo.move(A)
+        sleep(f/300+0.05)
+        print(A)
+        for i in range(0,21,1):
+            B=i/20
+            LedB(B)
+            sleep(0.15)
+            L=sensor.read()#no autogain, calibrated out
+            
+            out=[B,L,A]
+            print(B,L) 
+            file.write(','.join(map(str, out))+'\n')
+            
+        LedB(0)
+            
+            
+    t= 0.000000001*(time_ns()-tRef)
+
+    print(t)
 
 #500.3311
-
+#394.0228
