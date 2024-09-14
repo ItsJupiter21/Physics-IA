@@ -15,7 +15,7 @@ def LedB(B):
     Led.duty_u16(int(65535*B))
 
 
-Servo = Servo(pin=29,)  #To be changed according to the pin 
+Servo = Servo(pin=29,)
 Servo.move(0)
 
 i2c = I2C(1, sda=Pin(14), scl=Pin(15))
@@ -89,5 +89,3 @@ for q in range(10):#amount of itterations
 t0= 0.000000001*(time_ns()-tRef0)
 print(tdef)
 print(times)
-
-
