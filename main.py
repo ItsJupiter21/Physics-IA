@@ -46,10 +46,10 @@ if ttystart==1:
 else:
     while(rp2.bootsel_button()==0):
         continue
+    ledw(0,0,0)
     sleep(10)
 tRef0=time_ns()
 
-ledw(0,0,0)
 for q in range(2):#amount of itterations
     
     index=open('index.txt','a+')
@@ -106,6 +106,7 @@ print(tdef)
 print(times)
 Servo.move(0)
 ledw(255,0,0)
+ledB(0)
 while(1):
     ledw(255,0,0)
     sleep(0.5)
