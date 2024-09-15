@@ -49,7 +49,7 @@ else:
     sleep(10)
 tRef0=time_ns()
 
-
+ledw(0,0,0)
 for q in range(2):#amount of itterations
     
     index=open('index.txt','a+')
