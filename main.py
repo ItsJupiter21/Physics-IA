@@ -3,10 +3,15 @@
 #iav2x.csv have the LED at full brigthness fuck me
 from machine import Pin,PWM,I2C
 from time import sleep, time_ns
-import rp2
+import rp2,ws2812
 
 from servo import Servo
 import tsl2561
+
+ledsm = rp2.StateMachine(0, ws2812.ws2812, freq=8_000_000, sideset_base=Pin(16))
+ledsm.active(1)
+
+brightness=1
 
 ttystart=False
 
@@ -14,9 +19,13 @@ Led = PWM(Pin(28), freq=600000,invert=True)
 def LedB(B):
     Led.duty_u16(int(65535*B))
 
+def ledw(r,g,b):
+    r=round(r*brightness)
+    g=round(g*brightness)
+    b=round(b*brightness)
+    ledsm.put((g<<24) | (r<<16) | (b<<8))
 
-Servo = Servo(pin=29,)
-Servo.move(0)
+Servo = Servo(pin=29,)    
 
 i2c = I2C(1, sda=Pin(14), scl=Pin(15))
 sensor = tsl2561.TSL2561(i2c)
@@ -28,6 +37,10 @@ sensor.gain(16)#16 is the most sensitive
 
 times=[]
 
+
+Servo.move(0)
+ledw(0,0,255)
+
 if ttystart==1:
     input("Press enter to start")#wait for tty to start
 else:
@@ -37,7 +50,7 @@ else:
 tRef0=time_ns()
 
 
-for q in range(10):#amount of itterations
+for q in range(2):#amount of itterations
     
     index=open('index.txt','a+')
     try:
@@ -85,7 +98,16 @@ for q in range(10):#amount of itterations
 
     print(t)
     times.append(t)
+    file.close()
+
 
 t0= 0.000000001*(time_ns()-tRef0)
 print(tdef)
 print(times)
+Servo.move(0)
+ledw(255,0,0)
+while(1):
+    ledw(255,0,0)
+    sleep(0.5)
+    ledw(0,0,255)
+    sleep(0.5)
