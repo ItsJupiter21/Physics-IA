@@ -56,6 +56,13 @@ else:
         continue
     ledw(0,0,0)
     print("starting")
+    
+    Servo.move(180)
+    sleep(0.5)
+    Servo.move(0)
+    sleep(0.5)
+    
+    
     sleep(10)
 tRef0=time_ns()
 
