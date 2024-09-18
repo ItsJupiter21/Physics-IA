@@ -1,6 +1,5 @@
 
 
-#iav2x.csv have the LED at full brigthness fuck me
 from machine import Pin,PWM,I2C
 from time import sleep, time_ns
 import rp2, ws2812
