@@ -1,0 +1,11 @@
+{
+    "[java]": {
+      "spotlessGradle.format.enable": true,
+      "spotlessGradle.diagnostics.enable": true
+    },
+
+
+    "python.analysis.extraPaths": [
+        "./lib"
+    ]
+}

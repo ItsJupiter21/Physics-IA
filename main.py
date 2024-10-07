@@ -1,8 +1,8 @@
 
 
-from machine import Pin,PWM,I2C
+from machine import Pin,PWM,I2C # type: ignore
 from time import sleep, time_ns
-import rp2, ws2812
+import rp2, ws2812 # type: ignore
 
 from servo import Servo
 import tsl2561
